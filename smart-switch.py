@@ -10,6 +10,7 @@ from selenium.webdriver.common.keys import Keys
 
 # Get todays date in a format suitable for the site
 today = datetime.datetime.today()
+#today += datetime.timedelta(days=1)
 today = today.strftime('%d.%m.%Y')
 
 # The web adress where we can find the table with prices
@@ -47,10 +48,10 @@ def retrieve_prices():
     html = html.replace('\n', '')
 
     # Find the start of the hours column
-    html = goto(html, 'DayAheadPricesMongoEntity')
+    #html = goto(html, 'DayAheadPricesMongoEntity')
     
     # Define what we are looking for
-    pattern = 'data-view-detail-link<\/span>"&gt;<\/span>(.*?)<span'
+    pattern = ';" class="data-view-detail-link">(.*?)<\/span'
     matches = re.findall(pattern, html)
 
     # Display all the matches
