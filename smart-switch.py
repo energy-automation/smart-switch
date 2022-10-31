@@ -16,14 +16,6 @@ today = today.strftime('%d.%m.%Y')
 # The web adress where we can find the table with prices
 entsoe_url = f"https://transparency.entsoe.eu/transmission-domain/r2/dayAheadPrices/show?name=&defaultValue=false&viewType=TABLE&areaType=BZN&atch=false&dateTime.dateTime={today}+00:00|CET|DAY&biddingZone.values=CTY|10YNL----------L!BZN|10YNL----------L&resolution.values=PT60M&dateTime.timezone=CET_CEST&dateTime.timezone_input=CET+(UTC+1)+/+CEST+(UTC+2)"
 
-# Finds a substring in a string and cuts of everything before that occurrence.
-def goto(haystack, needle):
-    position = haystack.find(needle)
-
-    if position == 0:
-        return haystack
-
-    return haystack[position:]
     
 # Download and extract prices    
 def retrieve_prices():
@@ -47,9 +39,6 @@ def retrieve_prices():
     html = ''.join(html)
     html = html.replace('\n', '')
 
-    # Find the start of the hours column
-    #html = goto(html, 'DayAheadPricesMongoEntity')
-    
     # Define what we are looking for
     pattern = ';" class="data-view-detail-link">(.*?)<\/span'
     matches = re.findall(pattern, html)
