@@ -8,13 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-# Get todays date in a format suitable for the site
-today = datetime.datetime.today()
-#today += datetime.timedelta(days=1)
-today = today.strftime('%d.%m.%Y')
-
-# The web adress where we can find the table with prices
-entsoe_url = f"https://transparency.entsoe.eu/transmission-domain/r2/dayAheadPrices/show?name=&defaultValue=false&viewType=TABLE&areaType=BZN&atch=false&dateTime.dateTime={today}+00:00|CET|DAY&biddingZone.values=CTY|10YNL----------L!BZN|10YNL----------L&resolution.values=PT60M&dateTime.timezone=CET_CEST&dateTime.timezone_input=CET+(UTC+1)+/+CEST+(UTC+2)"
+entsoe_base_url = "https://transparency.entsoe.eu/transmission-domain/r2/dayAheadPrices/show?name=&defaultValue=false&viewType=TABLE&areaType=BZN&atch=false&dateTime.dateTime={0}+00:00|CET|DAY&biddingZone.values=CTY|10YNL----------L!BZN|10YNL----------L&resolution.values=PT60M&dateTime.timezone=CET_CEST&dateTime.timezone_input=CET+(UTC+1)+/+CEST+(UTC+2)"
+entsoe_url = None
 
     
 # Download and extract prices    
@@ -70,6 +65,12 @@ if __name__ == '__main__':
         
         # New day? Download new prices
         if now.day != old_day:
+            # Get todays date in a format suitable for the site
+            today = datetime.datetime.today()
+            today = today.strftime('%d.%m.%Y')
+
+            # The web adress where we can find the table with prices
+            entsoe_url = entsoe_base_url.format(today)
             prices = retrieve_prices()
             old_day = now.day
             
