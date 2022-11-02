@@ -28,7 +28,7 @@ def retrieve_prices():
     # And close the browser
     browser.quit()
     
-        # Read the content of the file.
+    # Read the content of the file.
     with open('content.txt', 'r') as f:
         html = f.readlines()
     html = ''.join(html)
@@ -50,6 +50,7 @@ def retrieve_prices():
     
 
 if __name__ == '__main__':
+    # Setup the hardware pin for the Raspberry
     switch_pin = 40    # GPIO21
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(switch_pin, GPIO.OUT)
